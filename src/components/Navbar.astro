@@ -1,0 +1,84 @@
+<header class="fixed w-full z-50 backdrop-blur-md">
+  <nav class="relative mx-auto py-4 px-8 md:px-12 lg:px-24 md:py-6">
+    <div class="flex justify-between items-center h-16">
+      <div class="flex-shrink-0">
+        <a href="/" class="flex items-center">
+          <img
+            src="/imgs/Logo-Dark-Alt.png"
+            alt="Company Logo"
+            class="h-10 md:h-14 w-auto"
+          />
+        </a>
+      </div>
+
+      <button
+        id="menu-toggle"
+        class="md:hidden inline-flex items-center p-2 text-white hover:bg-memhirETBlue-500/20 rounded-lg transition-colors"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            id="menu-icon"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+
+      <div
+        id="mobile-menu"
+        class="hidden absolute top-full left-0 right-0 backdrop-blur-md md:hidden p-6 mt-2 rounded-lg bg-black/80 border border-gray-700"
+      >
+        <div class="flex flex-col space-y-6">
+          <a
+            href="/about"
+            class="text-gray-300 hover:text-white transition-colors hover:bg-memhirETBlue-500/20 p-2 rounded-lg"
+            >About Us</a
+          >
+          <a
+            href="/companies"
+            class="text-gray-300 hover:text-white transition-colors hover:bg-memhirETBlue-500/20 p-2 rounded-lg"
+            >Companies</a
+          >
+          <a
+            href="/contact"
+            class="text-gray-300 hover:text-white transition-colors hover:bg-memhirETBlue-500/20 p-2 rounded-lg"
+            >Contact</a
+          >
+        </div>
+      </div>
+
+      <div class="hidden md:flex items-center space-x-24 lg:space-x-32">
+        <a
+          href="/about"
+          class="text-gray-300 hover:text-white transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-memhirETBlue-500 after:transition-transform hover:after:scale-x-100"
+          >About Us</a
+        >
+        <a
+          href="/companies"
+          class="text-gray-300 hover:text-white transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-memhirETBlue-500 after:transition-transform hover:after:scale-x-100"
+          >Companies</a
+        >
+        <a
+          href="/contact"
+          class="text-gray-300 hover:text-white transition-colors relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-memhirETBlue-500 after:transition-transform hover:after:scale-x-100"
+          >Contact</a
+        >
+      </div>
+    </div>
+  </nav>
+</header>
+
+<script>
+  const menuToggle = document.getElementById("menu-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  menuToggle?.addEventListener("click", () => {
+    mobileMenu?.classList.toggle("hidden");
+  });
+</script>

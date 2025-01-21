@@ -1,0 +1,74 @@
+---
+import SEO from "../components/SEO.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: string;
+}
+
+const {
+  title,
+  description = "YOLET Dynamics - Building Legacies",
+  image,
+  type,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+
+    <meta name="theme-color" content="#153d59" />
+
+    <SEO title={title} description={description} image={image} type={type} />
+
+    <link rel="manifest" href="/manifest.json" />
+
+    <title>{title}</title>
+  </head>
+  <body class="font-body">
+    <div
+      class="min-h-screen bg-gradient-to-br from-gray-950 via-gray-800 to-gray-900"
+    >
+      <div class="fixed inset-0 pointer-events-none"></div>
+
+      <slot />
+    </div>
+  </body>
+</html>
+<style is:global>
+  @font-face {
+    font-family: "Anonymous Pro";
+    src: url("/fonts/AnonymousPro-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Anonymous Pro";
+    src: url("/fonts/AnonymousPro-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "DM Sans";
+    src: url("/fonts/DMSans.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>

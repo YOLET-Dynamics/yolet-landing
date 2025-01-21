@@ -1,0 +1,20 @@
+---
+import Footer from "../components/Footer.astro";
+import Hero from "../components/Hero.astro";
+import Navbar from "../components/Navbar.astro";
+import Layout from "../layouts/Layout.astro";
+
+const pageTitle = "YOLET Dynamics - Building Legacies";
+const pageDescription = "Empowering People Through Simplicity & Excellence";
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  image="/og.jpg"
+  type="website"
+>
+  <Navbar />
+  <Hero />
+  <Footer />
+</Layout>

@@ -1,0 +1,21 @@
+{
+    "name": "YOLET Dynamics - Building Legacies",
+    "short_name": "YOLET Dynamics",
+    "description": "Bridging the gap between complexity and simplicity, ensuring every solution is modern, accessible, and impactful.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#36454F",
+    "theme_color": "#36454F",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
