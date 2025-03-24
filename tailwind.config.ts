@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss"
+import type { Config } from "tailwindcss";
 
 const config = {
   darkMode: ["class"],
@@ -101,12 +101,12 @@ const config = {
         "fade-in-delay-1": "fade-in 1s ease-out 0.2s forwards",
         "fade-in-delay-2": "fade-in 1s ease-out 0.4s forwards",
         "fade-up": "fade-up 1s ease-out",
-        "fade-up-delay": "fade-up 1s ease-out calc(var(--animation-delay, 0) * 0.1s) both",
+        "fade-up-delay":
+          "fade-up 1s ease-out calc(var(--animation-delay, 0) * 0.1s) both",
       },
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config
+} satisfies Config;
 
-export default config
-
+export default config;

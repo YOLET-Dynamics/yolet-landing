@@ -1,1 +1,0 @@
-self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/yoni/Desktop/Repositories/Projects/YOLET/yolet-landing/app/layout\":[\"static/media/7e6a2e30184bb114-s.p.woff2\",\"static/media/a34f9d1faa5f3315-s.p.woff2\",\"static/media/7cba1811e3c25a15-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"
