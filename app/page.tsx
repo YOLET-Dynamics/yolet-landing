@@ -170,38 +170,6 @@ export default function Home() {
     };
   }, [showAllProjects]);
 
-  useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: "0px",
-      threshold: 0.1,
-    };
-
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("animate-in");
-        }
-      });
-    };
-
-    const observer = new IntersectionObserver(
-      observerCallback,
-      observerOptions
-    );
-
-    const sections = document.querySelectorAll(".animate-on-scroll");
-    sections.forEach((section) => {
-      observer.observe(section);
-    });
-
-    return () => {
-      sections.forEach((section) => {
-        observer.unobserve(section);
-      });
-    };
-  }, []);
-
   const words = [
     { text: "Create.", className: "text-yellow-500" },
     { text: "Design.", className: "" },
@@ -290,47 +258,39 @@ export default function Home() {
 
           <div className="container relative z-10 px-4 md:px-6">
             <div className="mx-auto max-w-4xl px-2 text-center">
-              <div className="animate-on-scroll opacity-0 transition-all duration-700 ease-in [&.animate-in]:translate-y-0 [&.animate-in]:opacity-100 -translate-y-8">
-                <motion.h1
-                  variants={container}
-                  initial="hidden"
-                  animate="visible"
-                  className="text-3xl font-bold tracking-tight xs:text-4xl sm:text-5xl lg:text-7xl"
-                >
-                  {words.map((word, index) => (
-                    <motion.span
-                      key={index}
-                      variants={item}
-                      className={`inline-block ${word.className}`}
-                    >
-                      {word.text}{" "}
-                    </motion.span>
-                  ))}
-                </motion.h1>
-              </div>
-              <div className="animate-on-scroll opacity-0 transition-all duration-700 ease-in delay-300 [&.animate-in]:translate-y-0 [&.animate-in]:opacity-100 -translate-y-8">
-                <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-300 md:text-xl">
-                  We transform intricate business challenges into intuitive,
-                  user-centric software solutions that deliver measurable
-                  impact.
-                </p>
-              </div>
-              <div className="animate-on-scroll opacity-0 transition-all duration-700 ease-in delay-500 [&.animate-in]:translate-y-0 [&.animate-in]:opacity-100 -translate-y-8">
-                <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                  <Link href="/schedule">
-                    <Button className="w-full bg-yellow-500 text-black hover:bg-yellow-600 sm:w-auto">
-                      Get Started
-                    </Button>
-                  </Link>
-                  <Link href="/about">
-                    <Button
-                      variant="outline"
-                      className="w-full border-gray-400 text-white hover:text-gray-400 bg-black hover:bg-gray-900 sm:w-auto"
-                    >
-                      Learn More
-                    </Button>
-                  </Link>
-                </div>
+              <h1 className="text-3xl font-bold tracking-tight xs:text-4xl sm:text-5xl lg:text-7xl">
+                <span className="inline-block animate-fade text-yellow-500">
+                  Create.{" "}
+                </span>
+                <span className="inline-block animate-fade-delay-1">
+                  Design.{" "}
+                </span>
+                <span className="inline-block animate-fade-delay-2 text-yellow-500">
+                  Innovate.{" "}
+                </span>
+              </h1>
+            </div>
+            <div className="animate-fade">
+              <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-300 md:text-xl">
+                We transform intricate business challenges into intuitive,
+                user-centric software solutions that deliver measurable impact.
+              </p>
+            </div>
+            <div className="animate-fade">
+              <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <Link href="/schedule">
+                  <Button className="w-full bg-yellow-500 text-black hover:bg-yellow-600 sm:w-auto">
+                    Get Started
+                  </Button>
+                </Link>
+                <Link href="/about">
+                  <Button
+                    variant="outline"
+                    className="w-full border-gray-400 text-white hover:text-gray-400 bg-black hover:bg-gray-900 sm:w-auto"
+                  >
+                    Learn More
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -339,7 +299,7 @@ export default function Home() {
         <section className="w-full bg-black py-20 md:py-28">
           <div className="container px-4 md:px-6">
             <div className="mx-auto max-w-3xl text-center">
-              <div className="animate-on-scroll opacity-0 transition-all duration-700 ease-in [&.animate-in]:translate-y-0 [&.animate-in]:opacity-100 translate-y-8">
+              <div className="animate-fade">
                 <p className="text-lg leading-relaxed text-gray-300 md:text-xl">
                   To empower communities and businesses across Ethiopia, Africa,
                   and beyond with software that simplifies the complex, elevates
@@ -360,7 +320,7 @@ export default function Home() {
         >
           <div className="container px-4 md:px-6">
             <div className="mx-auto max-w-3xl text-center">
-              <div className="animate-on-scroll opacity-0 transition-all duration-700 ease-in [&.animate-in]:translate-y-0 [&.animate-in]:opacity-100 translate-y-8">
+              <div className="animate-fade">
                 <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
                   Our Services
                 </h2>
@@ -375,7 +335,7 @@ export default function Home() {
               {services.map((service, index) => (
                 <div
                   key={index}
-                  className="animate-on-scroll opacity-0 transition-all duration-700 ease-in [&.animate-in]:translate-y-0 [&.animate-in]:opacity-100 translate-y-8"
+                  className="animate-fade"
                   style={{ transitionDelay: `${index * 100}ms` }}
                 >
                   <ServiceCard
@@ -478,7 +438,7 @@ export default function Home() {
         <section className="w-full bg-black py-20 md:py-28 scroll-mt-12">
           <div className="container px-4 md:px-6">
             <div className="mx-auto max-w-3xl">
-              <div className="animate-on-scroll opacity-0 transition-all duration-700 ease-in [&.animate-in]:translate-y-0 [&.animate-in]:opacity-100 translate-y-8">
+              <div className="animate-fade">
                 <CTASection
                   title="Ready to get started?"
                   description="Let's discuss how we can help you achieve your business goals with custom software solutions."
@@ -493,7 +453,6 @@ export default function Home() {
 
       <Footer />
 
-      {/* Service Detail Dialogs */}
       {services.map((service, index) => (
         <Dialog
           key={index}
