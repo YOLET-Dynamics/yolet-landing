@@ -34,6 +34,11 @@ export function Navigation() {
     };
   }, [isMenuOpen]);
 
+  const navItems = [
+    { name: "Services", href: "/#services" },
+    { name: "About", href: "/about" },
+  ];
+
   return (
     <header
       className={cn(
@@ -56,24 +61,21 @@ export function Navigation() {
           </div>
         </Link>
 
-        <nav className="hidden md:flex md:items-center">
-          {["Services", "About"].map((item, index) => (
-            <div key={item} className="flex items-center">
+        <nav className="hidden md:flex md:items-center md:justify-center md:flex-1">
+          <div className="flex items-center justify-center space-x-24">
+            {navItems.map((item) => (
               <Link
-                href={item === "About" ? "/about" : `/#${item.toLowerCase()}`}
-                className="group px-12 text-base font-medium text-gray-400 transition-colors hover:text-white"
+                key={item.name}
+                href={item.href}
+                className="px-4 py-2 text-sm font-medium text-gray-400 transition-colors hover:text-white"
               >
-                <span className="relative">
-                  {item}
-                  <span className="absolute -bottom-1 left-0 h-[1px] w-0 bg-yellow-500 transition-all duration-300 group-hover:w-full"></span>
-                </span>
+                {item.name}
               </Link>
-              {index < 1 && <span className="text-gray-600 mx-2">/</span>}
-            </div>
-          ))}
+            ))}
+          </div>
         </nav>
 
-        <div className="hidden md:flex md:gap-4">
+        <div className="hidden md:flex md:items-center md:gap-4">
           <Link href="/schedule">
             <Button className="bg-yellow-500 text-black hover:bg-yellow-600">
               Get Started
@@ -103,29 +105,30 @@ export function Navigation() {
 
         <div
           className={cn(
-            "fixed inset-0 z-40 flex flex-col bg-gray-900 p-6 transition-all duration-300 ease-in-out md:hidden",
+            "fixed inset-0 z-40 flex flex-col bg-black p-6 transition-all duration-300 ease-in-out md:hidden",
             isMenuOpen ? "opacity-100" : "pointer-events-none opacity-0"
           )}
         >
           <div className="mt-16 flex flex-1 flex-col">
             <nav className="flex flex-col space-y-6 pt-8">
-              {["Services", "About"].map((item, i) => (
-                <Link
-                  key={item}
-                  href={item === "About" ? "/about" : `/#${item.toLowerCase()}`}
+              {navItems.map((item, i) => (
+                <div
+                  key={item.name}
                   className={cn(
-                    "text-2xl font-medium text-white transition-all duration-300 ease-in",
+                    "flex items-center justify-between text-2xl font-medium text-white transition-all duration-300 ease-in",
                     isMenuOpen
                       ? "translate-x-0 opacity-100"
                       : "translate-x-8 opacity-0",
                     { "transition-delay-100": i === 0 },
                     { "transition-delay-150": i === 1 },
-                    { "transition-delay-200": i === 2 }
+                    { "transition-delay-200": i === 2 },
+                    { "transition-delay-250": i === 3 }
                   )}
-                  onClick={() => setIsMenuOpen(false)}
                 >
-                  {item}
-                </Link>
+                  <Link href={item.href} onClick={() => setIsMenuOpen(false)}>
+                    {item.name}
+                  </Link>
+                </div>
               ))}
             </nav>
 

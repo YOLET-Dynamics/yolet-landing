@@ -16,9 +16,9 @@ import { Testimonial } from "@/components/testimonial";
 import { CTASection } from "@/components/cta-section";
 import { Seo } from "@/components/seo";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import router from "next/router";
-import { motion } from "framer-motion";
+import HeroSection from "@/components/hero-section";
+import { ScrollIndicator } from "@/components/scroll-indicator";
 
 export default function Home() {
   const [activeDialog, setActiveDialog] = useState<number | null>(null);
@@ -170,35 +170,6 @@ export default function Home() {
     };
   }, [showAllProjects]);
 
-  const words = [
-    { text: "Create.", className: "text-yellow-500" },
-    { text: "Design.", className: "" },
-    { text: "Innovate.", className: "text-yellow-500" },
-  ];
-
-  const container = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2,
-      },
-    },
-  };
-
-  const item = {
-    hidden: { y: 20, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
-  };
-
   if (showAllProjects) {
     return (
       <div className="flex min-h-screen flex-col bg-black text-white">
@@ -248,260 +219,124 @@ export default function Home() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-black text-white">
-      <Seo />
-      <Navigation />
+    <div className="flex min-h-screen flex-col bg-black text-white relative">
+      <ScrollIndicator />
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(64,64,64,0.1),transparent_60%)]"></div>
+      <div className="fixed inset-0 bg-[radial-gradient(circle_at_70%_70%,rgba(64,64,64,0.1),transparent_60%)]"></div>
+      <div className="fixed inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]"></div>
+      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-7xl">
+        <div className="absolute top-0 right-0 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl"></div>
+      </div>
 
-      <main className="flex-1 pt-16">
-        <section className="relative w-full overflow-hidden py-24 md:py-32 lg:py-40">
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black opacity-80"></div>
+      <div className="relative">
+        <Seo />
+        <Navigation />
 
-          <div className="container relative z-10 px-4 md:px-6">
-            <div className="mx-auto max-w-4xl px-2 text-center">
-              <h1 className="text-3xl font-bold tracking-tight xs:text-4xl sm:text-5xl lg:text-7xl">
-                <span className="inline-block animate-fade text-yellow-500">
-                  Create.{" "}
-                </span>
-                <span className="inline-block animate-fade-delay-1">
-                  Design.{" "}
-                </span>
-                <span className="inline-block animate-fade-delay-2 text-yellow-500">
-                  Innovate.{" "}
-                </span>
-              </h1>
-            </div>
-            <div className="animate-fade">
-              <p className="mx-auto mt-6 max-w-2xl text-lg text-gray-300 md:text-xl">
-                We transform intricate business challenges into intuitive,
-                user-centric software solutions that deliver measurable impact.
-              </p>
-            </div>
-            <div className="animate-fade">
-              <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <Link href="/schedule">
-                  <Button className="w-full bg-yellow-500 text-black hover:bg-yellow-600 sm:w-auto">
-                    Get Started
-                  </Button>
-                </Link>
-                <Link href="/about">
-                  <Button
-                    variant="outline"
-                    className="w-full border-gray-400 text-white hover:text-gray-400 bg-black hover:bg-gray-900 sm:w-auto"
+        <main className="flex-1">
+          <HeroSection />
+
+          <section id="services" className="w-full py-20 md:py-28 scroll-mt-12">
+            <div className="container px-4 md:px-6">
+              <div className="mx-auto max-w-3xl text-center">
+                <div className="animate-fade">
+                  <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+                    Our Services
+                  </h2>
+                  <p className="mt-4 text-gray-400">
+                    We specialize in creating user-centric software solutions
+                    that transform complex business challenges.
+                  </p>
+                </div>
+              </div>
+
+              <div className="mx-auto mt-16 max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8">
+                {services.map((service, index) => (
+                  <div
+                    key={index}
+                    className="animate-fade"
+                    style={{ transitionDelay: `${index * 100}ms` }}
                   >
-                    Learn More
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="w-full bg-black py-20 md:py-28">
-          <div className="container px-4 md:px-6">
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="animate-fade">
-                <p className="text-lg leading-relaxed text-gray-300 md:text-xl">
-                  To empower communities and businesses across Ethiopia, Africa,
-                  and beyond with software that simplifies the complex, elevates
-                  the everyday, and sparks meaningful progress. We envision
-                  technology built <span className="text-yellow-500">with</span>{" "}
-                  people, not just <span className="text-yellow-500">for</span>{" "}
-                  them.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Services Section */}
-        <section
-          id="services"
-          className="w-full bg-black py-20 md:py-28 scroll-mt-12"
-        >
-          <div className="container px-4 md:px-6">
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="animate-fade">
-                <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-                  Our Services
-                </h2>
-                <p className="mt-4 text-gray-400">
-                  We specialize in creating user-centric software solutions that
-                  transform complex business challenges.
-                </p>
-              </div>
-            </div>
-
-            <div className="mx-auto mt-16 max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8">
-              {services.map((service, index) => (
-                <div
-                  key={index}
-                  className="animate-fade"
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <ServiceCard
-                    title={service.title}
-                    description={service.description}
-                    features={service.features}
-                    onLearnMore={() => setActiveDialog(index)}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Work Section */}
-        {/* <section id="work" className="w-full bg-black py-20 md:py-28 scroll-mt-12">
-          <div className="container px-4 md:px-6">
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="animate-on-scroll opacity-0 transition-all duration-700 ease-in [&.animate-in]:translate-y-0 [&.animate-in]:opacity-100 translate-y-8">
-                <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-                  Our Work
-                </h2>
-                <p className="mt-4 text-gray-400">
-                  Explore our latest projects and see how we've helped
-                  businesses transform their digital presence.
-                </p>
-              </div>
-            </div>
-
-            <div className="mx-auto mt-16 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {projects.slice(0, 6).map((project, index) => (
-                <div
-                  key={index}
-                  className="animate-on-scroll opacity-0 transition-all duration-700 ease-in [&.animate-in]:translate-y-0 [&.animate-in]:opacity-100 translate-y-8"
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <ProjectCard
-                    title={project.title}
-                    category={project.category}
-                    image={project.image}
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-16 text-center">
-              <div className="animate-on-scroll opacity-0 transition-all duration-700 ease-in [&.animate-in]:translate-y-0 [&.animate-in]:opacity-100 translate-y-8">
-                <button
-                  className="border border-white/20 text-white hover:bg-white/10 px-6 py-2 rounded-md font-medium"
-                  onClick={() => setShowAllProjects(true)}
-                >
-                  View All Projects
-                </button>
-              </div>
-            </div>
-          </div>
-        </section> */}
-
-        {/* Testimonials */}
-        {/* <section className="w-full bg-black py-20 md:py-28 scroll-mt-12">
-          <div className="container px-4 md:px-6">
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="animate-on-scroll opacity-0 transition-all duration-700 ease-in [&.animate-in]:translate-y-0 [&.animate-in]:opacity-100 translate-y-8">
-                <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-                  Trusted By
-                </h2>
-                <p className="mt-4 text-gray-400">
-                  Leading organizations rely on our expertise to solve their
-                  most complex challenges.
-                </p>
-              </div>
-            </div>
-
-            <div className="mx-auto mt-16 grid max-w-5xl grid-cols-2 gap-4 sm:gap-8 md:grid-cols-4">
-              {[1, 2, 3, 4].map((item, index) => (
-                <div
-                  key={item}
-                  className="animate-on-scroll opacity-0 transition-all duration-700 ease-in [&.animate-in]:translate-y-0 [&.animate-in]:opacity-100 translate-y-8"
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <div className="flex aspect-[3/2] items-center justify-center rounded-lg border border-white/10 bg-gray-900/30 p-6">
-                    <div className="h-12 w-24 rounded bg-gray-800"></div>
+                    <ServiceCard
+                      title={service.title}
+                      description={service.description}
+                      features={service.features}
+                      onLearnMore={() => setActiveDialog(index)}
+                    />
                   </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="w-full py-20 md:py-28 scroll-mt-12">
+            <div className="container px-4 md:px-6">
+              <div className="mx-auto max-w-3xl">
+                <div className="animate-fade">
+                  <CTASection
+                    title="Ready to get started?"
+                    description="Let's discuss how we can help you achieve your business goals with custom software solutions."
+                    primaryButtonText="Schedule a Call"
+                    primaryButtonAction={() => router.push("/schedule")}
+                  />
                 </div>
-              ))}
-            </div>
-
-            <div className="mx-auto mt-16 max-w-3xl">
-              <div className="animate-on-scroll opacity-0 transition-all duration-700 ease-in [&.animate-in]:translate-y-0 [&.animate-in]:opacity-100 translate-y-8">
-                <Testimonial
-                  quote="YOLET Labs delivered a solution that transformed our business operations, exceeding our expectations in every way."
-                  author="Sarah Johnson"
-                  position="CEO, TechCorp"
-                />
               </div>
             </div>
-          </div>
-        </section> */}
+          </section>
+        </main>
 
-        <section className="w-full bg-black py-20 md:py-28 scroll-mt-12">
-          <div className="container px-4 md:px-6">
-            <div className="mx-auto max-w-3xl">
-              <div className="animate-fade">
-                <CTASection
-                  title="Ready to get started?"
-                  description="Let's discuss how we can help you achieve your business goals with custom software solutions."
-                  primaryButtonText="Schedule a Call"
-                  primaryButtonAction={() => router.push("/schedule")}
-                />
+        <Footer />
+
+        {services.map((service, index) => (
+          <Dialog
+            key={index}
+            open={activeDialog === index}
+            onOpenChange={() => setActiveDialog(null)}
+          >
+            <DialogContent className="max-w-[95vw] sm:max-w-[500px] md:max-w-[550px] p-4 sm:p-6 border-white/10 bg-black text-white">
+              <DialogHeader className="space-y-2">
+                <DialogTitle className="text-xl sm:text-2xl text-yellow-500">
+                  {service.title}
+                </DialogTitle>
+              </DialogHeader>
+              <div className="mt-3 space-y-4">
+                <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
+                  {service.details}
+                </p>
+
+                <div className="pt-2">
+                  <h4 className="text-sm font-medium text-white mb-2">
+                    Key Features
+                  </h4>
+                  <ul className="space-y-3">
+                    {service.features.map((feature, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-start text-sm sm:text-base"
+                      >
+                        <Check className="mr-2 h-4 w-4 text-yellow-500 mt-0.5" />
+                        <span className="text-gray-300">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="pt-4 flex justify-end">
+                  <Button
+                    className="bg-yellow-500 text-black hover:bg-yellow-600"
+                    onClick={() => {
+                      setActiveDialog(null);
+                      router.push("/schedule");
+                    }}
+                  >
+                    Request Service
+                  </Button>
+                </div>
               </div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <Footer />
-
-      {services.map((service, index) => (
-        <Dialog
-          key={index}
-          open={activeDialog === index}
-          onOpenChange={() => setActiveDialog(null)}
-        >
-          <DialogContent className="max-w-[95vw] sm:max-w-[500px] md:max-w-[550px] p-4 sm:p-6 border-white/10 bg-black text-white">
-            <DialogHeader className="space-y-2">
-              <DialogTitle className="text-xl sm:text-2xl text-yellow-500">
-                {service.title}
-              </DialogTitle>
-            </DialogHeader>
-            <div className="mt-3 space-y-4">
-              <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
-                {service.details}
-              </p>
-
-              <div className="pt-2">
-                <h4 className="text-sm font-medium text-white mb-2">
-                  Key Features
-                </h4>
-                <ul className="space-y-3">
-                  {service.features.map((feature, idx) => (
-                    <li
-                      key={idx}
-                      className="flex items-start text-sm sm:text-base"
-                    >
-                      <Check className="mr-2 h-4 w-4 text-yellow-500 mt-0.5" />
-                      <span className="text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="pt-4 flex justify-end">
-                <Button
-                  className="bg-yellow-500 text-black hover:bg-yellow-600"
-                  onClick={() => {
-                    setActiveDialog(null);
-                    router.push("/schedule");
-                  }}
-                >
-                  Request Service
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
-        </Dialog>
-      ))}
+            </DialogContent>
+          </Dialog>
+        ))}
+      </div>
     </div>
   );
 }

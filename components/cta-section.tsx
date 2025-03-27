@@ -20,7 +20,7 @@ export function CTASection({
   secondaryButtonAction,
 }: CTASectionProps) {
   return (
-    <div className="rounded-xl border border-white/10 bg-gray-900/30 p-8 text-center md:p-12">
+    <div className="rounded-xl border border-gray-800 bg-gray-900/30 p-8 text-center md:p-12">
       <h2 className="text-3xl font-bold tracking-tight md:text-4xl">{title}</h2>
       <p className="mx-auto mt-4 max-w-xl text-gray-400">{description}</p>
       <div className="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
