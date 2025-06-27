@@ -1,13 +1,12 @@
 "use client";
 
 import { useEffect } from "react";
-import { Navigation } from "@/components/navigation";
-import { Footer } from "@/components/footer";
+import { useRouter } from "next/navigation";
 import { CTASection } from "@/components/cta-section";
 import { Seo } from "@/components/seo";
-import router from "next/router";
 
 export default function AboutPage() {
+  const router = useRouter();
   useEffect(() => {
     const observerOptions = {
       root: null,
@@ -55,7 +54,6 @@ export default function AboutPage() {
           title="About Us"
           description="Learn about YOLET Labs, our mission, vision, and values. We're transforming how businesses and communities interact with technology."
         />
-        <Navigation />
 
         <main className="flex-1 pt-16">
           <section className="relative w-full overflow-hidden py-24 md:py-32">
@@ -208,8 +206,6 @@ export default function AboutPage() {
             </div>
           </section>
         </main>
-
-        <Footer />
       </div>
     </div>
   );

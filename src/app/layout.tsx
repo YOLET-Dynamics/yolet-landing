@@ -3,6 +3,8 @@ import "@/app/globals.css";
 import { Inter } from "next/font/google";
 import { Space_Grotesk, DM_Sans } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Navigation } from "@/components/navigation";
+import { Footer } from "@/components/footer";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -38,11 +40,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <Navigation />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
   );
 }
-
-import "./globals.css";

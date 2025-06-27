@@ -3,8 +3,6 @@
 import type React from "react";
 
 import { useState } from "react";
-import { Navigation } from "@/components/navigation";
-import { Footer } from "@/components/footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -32,10 +30,13 @@ type ScheduleFormData = {
   location: string;
   services: string;
   projectDescription: string;
+  _honeypot: string;
+  submissionTime: number;
 };
 
 export default function SchedulePage() {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formErrors, setFormErrors] = useState<Partial<Record<keyof ScheduleFormData, string>>>({});
 
   const [formData, setFormData] = useState<ScheduleFormData>({
     firstName: "",
@@ -48,17 +49,75 @@ export default function SchedulePage() {
     location: "",
     services: "",
     projectDescription: "",
+    _honeypot: "",
+    submissionTime: 0,
   });
 
   const [submit, submitting] = useFormspark({
     formId: process.env.NEXT_PUBLIC_FORMSPARK_FORM_ID || "",
   });
 
+  const validateForm = (): boolean => {
+    const errors: Partial<Record<keyof ScheduleFormData, string>> = {};
+    
+    if (!/^[A-Za-z]{2,24}$/.test(formData.firstName)) {
+      errors.firstName = "First name must be 2-24 letters only";
+    }
+    if (!/^[A-Za-z]{2,24}$/.test(formData.lastName)) {
+      errors.lastName = "Last name must be 2-24 letters only";
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = "Please enter a valid email address";
+    }
+
+    if (!/^(\+251[97]\d{8}|0[97]\d{8})$/.test(formData.phone)) {
+      errors.phone = "Please enter a valid Ethiopian phone number";
+    }
+
+    if (formData.company.length < 2 || formData.company.length > 50) {
+      errors.company = "Company name must be between 2 and 50 characters";
+    }
+
+    if (!formData.industry) errors.industry = "Please select an industry";
+    if (!formData.companySize) errors.companySize = "Please select company size";
+    if (!formData.location) errors.location = "Location is required";
+    if (!formData.services) errors.services = "Please select a service";
+    if (!formData.projectDescription) errors.projectDescription = "Project description is required";
+    if (formData.projectDescription.length > 350) {
+      errors.projectDescription = "Project description must not exceed 350 characters";
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await submit(formData);
+
+    if (formData._honeypot) {
+      console.log("Bot detected");
+      return;
+    }
+
+    const timeSinceFormLoad = Date.now() - formData.submissionTime;
+    if (timeSinceFormLoad < 3000) {
+      console.log("Submission too quick - likely a bot");
+      return;
+    }
+
+    if (!validateForm()) {
+      return;
+    }
+
+    const { _honeypot, submissionTime: formLoadTime, ...submitData } = formData;
+    await submit(submitData);
     setFormSubmitted(true);
   };
+
+  useState(() => {
+    setFormData(prev => ({ ...prev, submissionTime: Date.now() }));
+  });
 
   if (formSubmitted) {
     return (
@@ -76,7 +135,6 @@ export default function SchedulePage() {
             title="Thank You"
             description="Thank you for scheduling a call with YOLET Labs. We'll be in touch shortly to confirm your appointment."
           />
-          <Navigation />
 
           <main className="flex-1 pt-24 pb-20">
             <div className="container px-4 md:px-6">
@@ -102,8 +160,6 @@ export default function SchedulePage() {
               </div>
             </div>
           </main>
-
-          <Footer />
         </div>
       </div>
     );
@@ -124,7 +180,6 @@ export default function SchedulePage() {
           title="Schedule a Call"
           description="Schedule a call with YOLET Labs to discuss how we can help you achieve your business goals with custom software solutions."
         />
-        <Navigation />
 
         <main className="flex-1 pt-24 pb-20 mt-12">
           <div className="container px-4 md:px-6">
@@ -142,6 +197,15 @@ export default function SchedulePage() {
                   onSubmit={handleSubmit}
                   className="space-y-8"
                 >
+                  <input
+                    type="text"
+                    name="_honeypot"
+                    style={{ display: 'none' }}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    onChange={(e) => setFormData({ ...formData, _honeypot: e.target.value })}
+                  />
+
                   <div className="space-y-6">
                     <h2 className="text-xl font-medium">Your Information</h2>
 
@@ -155,7 +219,7 @@ export default function SchedulePage() {
                           required
                           minLength={2}
                           maxLength={24}
-                          pattern="^[A-Za-z]+$"
+                          pattern="^[A-Za-z]{2,24}$"
                           title="Please enter a valid first name (2-24 letters only)"
                           className="bg-gray-800/50 border-gray-700"
                           onChange={(e) =>
@@ -165,6 +229,9 @@ export default function SchedulePage() {
                             })
                           }
                         />
+                        {formErrors.firstName && (
+                          <p className="text-red-500 text-sm mt-1">{formErrors.firstName}</p>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="lastName">Last Name</Label>
@@ -175,13 +242,16 @@ export default function SchedulePage() {
                           required
                           minLength={2}
                           maxLength={24}
-                          pattern="^[A-Za-z]+$"
+                          pattern="^[A-Za-z]{2,24}$"
                           title="Please enter a valid last name (2-24 letters only)"
                           className="bg-gray-800/50 border-gray-700"
                           onChange={(e) =>
                             setFormData({ ...formData, lastName: e.target.value })
                           }
                         />
+                        {formErrors.lastName && (
+                          <p className="text-red-500 text-sm mt-1">{formErrors.lastName}</p>
+                        )}
                       </div>
                     </div>
 
@@ -193,11 +263,15 @@ export default function SchedulePage() {
                         name="email"
                         placeholder="john@example.com"
                         required
+                        pattern="[^\s@]+@[^\s@]+\.[^\s@]+"
                         className="bg-gray-800/50 border-gray-700"
                         onChange={(e) =>
                           setFormData({ ...formData, email: e.target.value })
                         }
                       />
+                      {formErrors.email && (
+                        <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
+                      )}
                     </div>
 
                     <div className="space-y-2">
@@ -214,6 +288,9 @@ export default function SchedulePage() {
                           setFormData({ ...formData, phone: e.target.value })
                         }
                       />
+                      {formErrors.phone && (
+                        <p className="text-red-500 text-sm mt-1">{formErrors.phone}</p>
+                      )}
                     </div>
                   </div>
 
@@ -227,11 +304,16 @@ export default function SchedulePage() {
                         name="company"
                         placeholder="Acme Inc."
                         required
+                        minLength={2}
+                        maxLength={50}
                         className="bg-gray-800/50 border-gray-700"
                         onChange={(e) =>
                           setFormData({ ...formData, company: e.target.value })
                         }
                       />
+                      {formErrors.company && (
+                        <p className="text-red-500 text-sm mt-1">{formErrors.company}</p>
+                      )}
                     </div>
 
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -239,6 +321,7 @@ export default function SchedulePage() {
                         <Label htmlFor="industry">Industry</Label>
                         <Select
                           name="industry"
+                          required
                           onValueChange={(value) =>
                             setFormData({ ...formData, industry: value })
                           }
@@ -252,17 +335,19 @@ export default function SchedulePage() {
                             <SelectItem value="finance">Finance</SelectItem>
                             <SelectItem value="education">Education</SelectItem>
                             <SelectItem value="retail">Retail</SelectItem>
-                            <SelectItem value="manufacturing">
-                              Manufacturing
-                            </SelectItem>
+                            <SelectItem value="manufacturing">Manufacturing</SelectItem>
                             <SelectItem value="other">Other</SelectItem>
                           </SelectContent>
                         </Select>
+                        {formErrors.industry && (
+                          <p className="text-red-500 text-sm mt-1">{formErrors.industry}</p>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="size">Company Size</Label>
                         <Select
                           name="companySize"
+                          required
                           onValueChange={(value) =>
                             setFormData({ ...formData, companySize: value })
                           }
@@ -273,15 +358,14 @@ export default function SchedulePage() {
                           <SelectContent>
                             <SelectItem value="1-10">1-10 employees</SelectItem>
                             <SelectItem value="11-50">11-50 employees</SelectItem>
-                            <SelectItem value="51-200">
-                              51-200 employees
-                            </SelectItem>
-                            <SelectItem value="201-500">
-                              201-500 employees
-                            </SelectItem>
+                            <SelectItem value="51-200">51-200 employees</SelectItem>
+                            <SelectItem value="201-500">201-500 employees</SelectItem>
                             <SelectItem value="501+">501+ employees</SelectItem>
                           </SelectContent>
                         </Select>
+                        {formErrors.companySize && (
+                          <p className="text-red-500 text-sm mt-1">{formErrors.companySize}</p>
+                        )}
                       </div>
                     </div>
 
@@ -292,11 +376,16 @@ export default function SchedulePage() {
                         name="location"
                         placeholder="City, Country"
                         required
+                        minLength={2}
+                        maxLength={100}
                         className="bg-gray-800/50 border-gray-700"
                         onChange={(e) =>
                           setFormData({ ...formData, location: e.target.value })
                         }
                       />
+                      {formErrors.location && (
+                        <p className="text-red-500 text-sm mt-1">{formErrors.location}</p>
+                      )}
                     </div>
                   </div>
 
@@ -308,6 +397,7 @@ export default function SchedulePage() {
                       <RadioGroup
                         defaultValue="enterprise"
                         name="services"
+                        required
                         className="grid grid-cols-1 gap-4 pt-2 sm:grid-cols-2 [&_[data-state=checked]]:border-yellow-500"
                         onValueChange={(value) => {
                           const serviceLabels: { [key: string]: string } = {
@@ -363,6 +453,9 @@ export default function SchedulePage() {
                           </Label>
                         </div>
                       </RadioGroup>
+                      {formErrors.services && (
+                        <p className="text-red-500 text-sm mt-1">{formErrors.services}</p>
+                      )}
                     </div>
 
                     <div className="space-y-2">
@@ -371,6 +464,7 @@ export default function SchedulePage() {
                         id="description"
                         name="projectDescription"
                         placeholder="Tell us about your project and what you're looking to achieve..."
+                        required
                         maxLength={350}
                         className="min-h-[120px] bg-gray-800/50 border-gray-700"
                         onChange={(e) =>
@@ -380,6 +474,9 @@ export default function SchedulePage() {
                           })
                         }
                       />
+                      {formErrors.projectDescription && (
+                        <p className="text-red-500 text-sm mt-1">{formErrors.projectDescription}</p>
+                      )}
                     </div>
                   </div>
 
@@ -395,8 +492,6 @@ export default function SchedulePage() {
             </div>
           </div>
         </main>
-
-        <Footer />
       </div>
     </div>
   );

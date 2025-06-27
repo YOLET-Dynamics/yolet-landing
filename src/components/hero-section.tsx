@@ -33,19 +33,19 @@ export default function HeroSection() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 mt-8">
-              <Link href="/schedule">
+              <Link href="/schedule" className="w-full sm:w-auto">
                 <Button
                   size="lg"
-                  className="bg-yellow-500 text-black hover:bg-yellow-600"
+                  className="w-full bg-yellow-500 text-black hover:bg-yellow-600"
                 >
                   Get Started <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-              <Link href="/about">
+              <Link href="/about" className="w-full sm:w-auto">
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-gray-700 text-white hover:text-gray-300 bg-transparent hover:bg-gray-900/50"
+                  className="w-full border-gray-700 text-white hover:text-gray-300 bg-transparent hover:bg-gray-900/50"
                 >
                   Learn More
                 </Button>
@@ -57,16 +57,16 @@ export default function HeroSection() {
                 Trusted by Industry Leaders
               </p>
               <div className="flex flex-wrap gap-8 items-center">
-                <div className="h-8 w-24 bg-gray-800/50 rounded"></div>
-                <div className="h-8 w-20 bg-gray-800/50 rounded"></div>
-                <div className="h-8 w-28 bg-gray-800/50 rounded"></div>
-                <div className="h-8 w-24 bg-gray-800/50 rounded"></div>
+                <div className="h-8 w-24 bg-gray-800/50 rounded-lg animate-pulse"></div>
+                <div className="h-8 w-20 bg-gray-800/50 rounded-lg animate-pulse delay-75"></div>
+                <div className="h-8 w-28 bg-gray-800/50 rounded-lg animate-pulse delay-150"></div>
+                <div className="h-8 w-24 bg-gray-800/50 rounded-lg animate-pulse delay-200"></div>
               </div>
             </div> */}
           </div>
 
           <div className="flex flex-col space-y-8 lg:pl-10">
-            <div className="relative p-6 bg-gray-900/30 rounded-xl border border-gray-800">
+            <div className="relative p-6 bg-gray-900/30 rounded-xl border border-gray-800 hover:border-yellow-500/50 transition-colors duration-300">
               <div className="absolute -top-3 -left-3 bg-yellow-500/20 w-16 h-16 rounded-full blur-xl"></div>
               <h3 className="text-xl font-semibold mb-4 flex items-center">
                 <Zap className="mr-2 h-5 w-5 text-yellow-500" /> Why we're
@@ -83,7 +83,7 @@ export default function HeroSection() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-6 bg-gray-900/30 rounded-xl border border-gray-800">
+              <div className="p-6 bg-gray-900/30 rounded-xl border border-gray-800 hover:border-yellow-500/50 transition-colors duration-300">
                 <Code className="h-8 w-8 text-yellow-500 mb-4" />
                 <h3 className="text-lg font-medium mb-2">Custom Development</h3>
                 <p className="text-gray-400">
@@ -91,7 +91,7 @@ export default function HeroSection() {
                 </p>
               </div>
 
-              <div className="p-6 bg-gray-900/30 rounded-xl border border-gray-800">
+              <div className="p-6 bg-gray-900/30 rounded-xl border border-gray-800 hover:border-yellow-500/50 transition-colors duration-300">
                 <Layers className="h-8 w-8 text-yellow-500 mb-4" />
                 <h3 className="text-lg font-medium mb-2">
                   Scalable Architecture
