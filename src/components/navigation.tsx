@@ -1,19 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type { ReactElement } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import { ArrowUpRight, Menu } from "lucide-react";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
+import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-export function Navigation() {
+export function Navigation(): ReactElement {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -27,94 +31,128 @@ export function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
-    { name: "Services", href: "/#services" },
-    { name: "About", href: "/about" },
-  ];
+  const navItems = siteConfig.nav;
 
   return (
-    <header
-      className={cn(
-        "fixed top-0 z-40 w-full border-b transition-all duration-300",
-        isScrolled
-          ? "border-white/10 bg-black/80 backdrop-blur supports-[backdrop-filter]:bg-black/60"
-          : "border-transparent bg-transparent"
-      )}
-    >
-      <div className="container flex h-16 items-center justify-between py-12 md:py-16">
-        <Link href="/" className="flex items-center space-x-3">
-          <Image
-            src="/logo.svg"
-            alt="YOLET Logo"
-            width={120}
-            height={26}
-            className="h-6 w-auto md:h-8"
-          />
-        </Link>
-
-        <nav className="hidden md:flex md:items-center md:justify-center md:flex-1">
-          <div className="flex items-center justify-center space-x-16">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className="px-4 py-2 text-sm font-medium text-gray-400 transition-colors hover:text-white"
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-        </nav>
-
-        <div className="hidden md:flex md:items-center md:gap-4">
-          <Link href="/schedule">
-            <Button className="bg-yellow-500 text-black hover:bg-yellow-600">
-              Get Started
-            </Button>
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
+      <div className="container pointer-events-auto pt-4 md:pt-6">
+        <div
+          className={cn(
+            "flex w-full items-center justify-between transition-all duration-300",
+            isScrolled
+              ? "rounded-[1.15rem] border border-white/[0.14] bg-black/[0.78] px-3 py-2.5 shadow-[0_24px_80px_rgba(0,0,0,0.42)] backdrop-blur-xl"
+              : "rounded-none border border-transparent bg-transparent px-0 py-1 shadow-none backdrop-blur-0",
+          )}
+        >
+          <Link
+            href="/"
+            className="flex items-center rounded-[0.85rem] px-2 py-1"
+          >
+            <Image
+              src="/logo.svg"
+              alt="YOLET Logo"
+              width={120}
+              height={26}
+              className="h-6 w-auto md:h-7"
+            />
           </Link>
-        </div>
 
-        <div className="md:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="rounded-full bg-gray-900/50 text-white border-gray-800"
-              >
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle navigation menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="bg-black text-white border-gray-900"
+          <nav className="hidden lg:flex lg:items-center">
+            <div
+              className={cn(
+                "flex items-center transition-all duration-300",
+                isScrolled
+                  ? "gap-1 rounded-[0.9rem] border border-white/[0.08] bg-white/[0.03] p-1"
+                  : "gap-7 rounded-none border-transparent bg-transparent p-0",
+              )}
             >
-              <div className="flex flex-col h-full">
-                <nav className="flex flex-col space-y-6 pt-16">
-                  {navItems.map((item) => (
-                    <SheetClose asChild key={item.name}>
-                      <Link
-                        href={item.href}
-                        className="text-2xl font-medium text-white"
-                      >
-                        {item.name}
-                      </Link>
-                    </SheetClose>
-                  ))}
-                </nav>
-                <div className="mt-auto space-y-4 pt-8">
-                  <SheetClose asChild>
-                    <Link href="/schedule" className="block">
-                      <Button className="w-full bg-yellow-500 text-black hover:bg-yellow-600">
-                        Get Started
+              {navItems.map((item) => {
+                const isActive =
+                  item.href === "/#services" ? pathname === "/" : pathname === item.href;
+
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className={cn(
+                      "text-[0.92rem] transition-all duration-300",
+                      isScrolled
+                        ? cn(
+                            "rounded-[0.72rem] px-4 py-1.5 text-white/[0.62]",
+                            isActive
+                              ? "bg-white/[0.08] text-white"
+                              : "hover:bg-white/[0.05] hover:text-white",
+                          )
+                        : cn(
+                            "px-0 py-0 text-white/[0.58]",
+                            isActive ? "text-white" : "hover:text-white",
+                          ),
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </div>
+          </nav>
+
+          <div className="hidden items-center gap-2 lg:flex">
+            <Button asChild size="sm" className="px-5">
+              <Link href="/schedule">
+                Schedule a call
+                <ArrowUpRight className="text-yellow-600" />
+              </Link>
+            </Button>
+          </div>
+
+          <div className="lg:hidden">
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className={cn(
+                    "rounded-[0.95rem] text-white transition-all duration-300",
+                    isScrolled
+                      ? "border-white/10 bg-white/[0.03]"
+                      : "border-transparent bg-transparent",
+                  )}
+                >
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Open navigation</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent
+                side="right"
+                className="border-white/10 bg-[#0c0c0d] p-6 text-white"
+              >
+                <div className="flex h-full flex-col">
+                  <div className="space-y-3 pt-16">
+                    {navItems.map((item) => (
+                      <SheetClose asChild key={item.label}>
+                        <Link
+                          href={item.href}
+                          className="block rounded-[0.95rem] border border-white/10 bg-white/[0.03] px-5 py-4 text-lg font-medium text-white/80 transition-colors hover:border-white/[0.18] hover:text-white"
+                        >
+                          {item.label}
+                        </Link>
+                      </SheetClose>
+                    ))}
+                  </div>
+                  <div className="mt-auto pt-8">
+                    <SheetClose asChild>
+                      <Button asChild className="w-full" size="lg">
+                        <Link href="/schedule">
+                          Schedule a call
+                          <ArrowUpRight className="text-yellow-600" />
+                        </Link>
                       </Button>
-                    </Link>
-                  </SheetClose>
+                    </SheetClose>
+                  </div>
                 </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
     </header>

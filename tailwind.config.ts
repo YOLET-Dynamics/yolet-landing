@@ -12,7 +12,7 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1.25rem",
       screens: {
         xs: "400px",
         sm: "640px",
@@ -72,8 +72,9 @@ const config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)"],
-        "space-grotesk": ["var(--font-space-grotesk)"],
-        "dm-sans": ["var(--font-dm-sans)"],
+        display: ["var(--font-display)"],
+        "space-grotesk": ["var(--font-display)"],
+        "dm-sans": ["var(--font-sans)"],
       },
       keyframes: {
         "accordion-down": {

@@ -1,10 +1,11 @@
 "use client";
 
+import type { ReactElement } from "react";
 import { useState, useEffect } from "react";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ArrowDown, ArrowUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export const ScrollIndicator = () => {
+export const ScrollIndicator = (): ReactElement => {
   const [showScrollUp, setShowScrollUp] = useState(false);
 
   useEffect(() => {
@@ -26,17 +27,19 @@ export const ScrollIndicator = () => {
   return (
     <AnimatePresence>
       <motion.button
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 16 }}
         onClick={scrollToPosition}
-        className="fixed bottom-8 right-8 bg-yellow-500 text-black p-3 rounded-full shadow-lg hover:bg-yellow-600 transition-colors z-50"
+        className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-[1rem] border border-white/10 bg-black/[0.72] px-4 py-3 text-sm text-white/70 shadow-[0_20px_60px_rgba(0,0,0,0.32)] backdrop-blur-xl transition-colors hover:text-white"
         aria-label={showScrollUp ? "Scroll to top" : "Scroll down"}
       >
+        <span className="h-1.5 w-1.5 rounded-full bg-yellow-500" />
+        <span>{showScrollUp ? "Back to top" : "Explore"}</span>
         {showScrollUp ? (
-          <ChevronUp className="h-6 w-6" />
+          <ArrowUp className="h-4 w-4" />
         ) : (
-          <ChevronDown className="h-6 w-6" />
+          <ArrowDown className="h-4 w-4" />
         )}
       </motion.button>
     </AnimatePresence>

@@ -1,158 +1,283 @@
-"use client";
-
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import type { Metadata } from "next";
+import type { ReactElement } from "react";
 import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { Check } from "lucide-react";
-import { ServiceCard } from "@/components/service-card";
+  Layers3,
+  Lightbulb,
+  ShieldCheck,
+} from "lucide-react";
 import { CTASection } from "@/components/cta-section";
-import { Seo } from "@/components/seo";
 import HeroSection from "@/components/hero-section";
 import { ScrollIndicator } from "@/components/scroll-indicator";
+import { SectionHeading } from "@/components/section-heading";
+import { absoluteUrl, siteConfig } from "@/lib/site";
+import { cn } from "@/lib/utils";
 
-export default function Home() {
-  const router = useRouter();
-  const [activeDialog, setActiveDialog] = useState<number | null>(null);
+export const metadata: Metadata = {
+  title: "Premium software design and engineering",
+  description:
+    "YOLET Labs builds software that simplifies the complex and supports meaningful progress.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
+export default function Home(): ReactElement {
   const services = [
     {
-      title: "Enterprise Software",
-      description: "Simplifying complex business operations.",
+      number: "01",
+      label: "Enterprise software",
+      title: "Operational systems with real clarity.",
+      description:
+        "We build internal platforms and core software that make day-to-day work easier to run.",
+      detail: "Good for complex workflows and reporting.",
       features: [
-        "Custom Workflow Automation",
-        "Business Intelligence Dashboards",
-        "Secure Data Management",
+        "Workflow automation",
+        "Business intelligence dashboards",
+        "Secure data foundations",
       ],
-      details:
-        "We create intuitive enterprise solutions that streamline operations and improve efficiency, with a focus on security and scalability.",
     },
     {
-      title: "Full App Development",
-      description: "End-to-end web and mobile applications.",
+      number: "02",
+      label: "Product builds",
+      title: "Full app development",
+      description:
+        "From idea to launch, we design and build products that feel clean and complete.",
+      detail: "Best for launches, web apps, and mobile products.",
       features: [
-        "Cross-platform Mobile Apps",
-        "Progressive Web Applications",
-        "Cloud-native Architecture",
+        "Cross-platform mobile apps",
+        "Responsive web applications",
+        "Scalable product architecture",
       ],
-      details:
-        "From concept to deployment, we build seamless applications that work flawlessly across all devices with performance and reliability at their core.",
     },
     {
-      title: "System Redesign",
-      description: "Modernizing existing digital infrastructure.",
+      number: "03",
+      label: "Strategic guidance",
+      title: "Strategic consulting",
+      description:
+        "We help teams make better product and technical decisions before they commit to a build.",
+      detail: "Useful when priorities or direction are still taking shape.",
       features: [
-        "Legacy System Migration",
-        "UX/UI Modernization",
-        "Performance Optimization",
+        "Digital transformation roadmaps",
+        "Technology stack assessment",
+        "Product strategy support",
       ],
-      details:
-        "We transform outdated systems into modern solutions that enhance performance and user experience with minimal disruption to your operations.",
     },
     {
-      title: "Strategic Consulting",
-      description: "Expert guidance for technology decisions.",
+      number: "04",
+      label: "Modernization",
+      title: "System redesign",
+      description:
+        "We update legacy software and dated workflows without slowing the business down.",
+      detail: "Best for modernization and cleanup work.",
       features: [
-        "Digital Transformation",
-        "Technology Stack Assessment",
-        "Product Development Strategy",
+        "Legacy system migration",
+        "UX and UI modernization",
+        "Performance optimization",
       ],
-      details:
-        "Our consultants provide expert guidance to navigate complex technology landscapes and develop strategic roadmaps for sustainable growth.",
+    },
+  ];
+
+  const principles = [
+    {
+      title: "Designed for trust",
+      description:
+        "Clear interfaces, solid implementation, and security in the details.",
+      icon: ShieldCheck,
+    },
+    {
+      title: "Crafted with restraint",
+      description:
+        "We keep the work simple, consistent, and well finished.",
+      icon: Layers3,
+    },
+    {
+      title: "Guided by real outcomes",
+      description:
+        "We stay focused on what your team actually needs next.",
+      icon: Lightbulb,
+    },
+  ];
+
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: siteConfig.url,
+      logo: absoluteUrl("/logo.svg"),
+      description: siteConfig.description,
+      sameAs: siteConfig.social.map((item) => item.href),
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: siteConfig.name,
+      url: siteConfig.url,
+      description: siteConfig.description,
     },
   ];
 
   return (
-    <div className="flex min-h-screen flex-col bg-black text-white relative">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(structuredData),
+        }}
+      />
       <ScrollIndicator />
-      <div className="fixed inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(64,64,64,0.1),transparent_60%)]"></div>
-      <div className="fixed inset-0 bg-[radial-gradient(circle_at_70%_70%,rgba(64,64,64,0.1),transparent_60%)]"></div>
-      <div className="fixed inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]"></div>
-      <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-7xl">
-        <div className="absolute top-0 right-0 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-72 h-72 bg-yellow-500/10 rounded-full blur-3xl"></div>
-      </div>
+      <main id="main-content" className="page-shell">
+        <HeroSection />
 
-      <div className="relative">
-        <Seo />
+        <section
+          id="services"
+          className="section-shell scroll-mt-32 pt-10 md:pt-14"
+        >
+          <div className="container">
+            <SectionHeading
+              eyebrow="Services"
+              title="Software built around the work it needs to support."
+              description="From new products to legacy systems, we build software that feels clear and dependable."
+            />
 
-        <main className="flex-1">
-          <HeroSection />
+            <div className="mt-12 grid gap-5 lg:grid-cols-12">
+              {services.map((service, index) => {
+                const isWide = index === 0 || index === services.length - 1;
+                const isMirrored = index === services.length - 1;
 
-          <section id="services" className="w-full py-20 md:py-28 scroll-mt-12">
-            <div className="container px-4 md:px-6">
-              <div className="mx-auto max-w-3xl text-center">
-                <div className="animate-fade">
-                  <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-                    Our Services
-                  </h2>
-                  <p className="mt-4 text-gray-400">
-                    We specialize in creating user-centric software solutions
-                    that transform complex business challenges.
+                return (
+                  <article
+                    key={service.title}
+                    className={cn(
+                      "premium-surface subtle-outline group relative overflow-hidden px-6 py-6 transition-transform duration-500 hover:-translate-y-1 md:px-8 md:py-8",
+                      isWide ? "lg:col-span-7" : "lg:col-span-5 lg:min-h-[24rem]",
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        "absolute inset-0 opacity-90 transition-opacity duration-500 group-hover:opacity-100",
+                        index % 2 === 0
+                          ? "bg-[radial-gradient(circle_at_top_right,rgba(245,184,0,0.08),transparent_42%)]"
+                          : "bg-[radial-gradient(circle_at_bottom_left,rgba(245,184,0,0.08),transparent_40%)]",
+                      )}
+                    />
+
+                    <div
+                      className={cn(
+                        "relative flex h-full flex-col gap-8",
+                        isWide &&
+                        "lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(250px,0.78fr)] lg:gap-10",
+                        isMirrored &&
+                        "lg:grid-cols-[minmax(250px,0.78fr)_minmax(0,1fr)]",
+                      )}
+                    >
+                      <div className={cn("space-y-5", isMirrored && "lg:order-2")}>
+                        <div className="flex items-center gap-3">
+                          <span className="flex h-8 min-w-8 items-center justify-center rounded-[0.8rem] border border-white/10 bg-white/[0.04] px-2 text-[0.72rem] font-medium tracking-[0.08em] text-white/[0.68]">
+                            {service.number}
+                          </span>
+                          <p className="text-[0.8rem] tracking-[0.08em] text-white/[0.36]">
+                            {service.label}
+                          </p>
+                        </div>
+
+                        <div className="space-y-4">
+                          <h3 className="max-w-xl text-[1.7rem] font-medium leading-tight text-white md:text-[2rem]">
+                            {service.title}
+                          </h3>
+                          <p className="max-w-2xl text-[0.98rem] leading-7 text-white/[0.58]">
+                            {service.description}
+                          </p>
+                        </div>
+
+                        <p className="inline-flex items-center gap-2 text-[0.9rem] text-white/[0.46]">
+                          <span className="h-1.5 w-1.5 rounded-full bg-yellow-500" />
+                          {service.detail}
+                        </p>
+                      </div>
+
+                      <div
+                        className={cn(
+                          "space-y-3",
+                          isMirrored && "lg:order-1",
+                          !isWide && "mt-auto",
+                        )}
+                      >
+                        <ul
+                          className={cn(
+                            "grid gap-2",
+                            isWide ? "sm:grid-cols-2 lg:grid-cols-1" : "sm:grid-cols-2",
+                          )}
+                        >
+                          {service.features.map((feature) => (
+                            <li
+                              key={feature}
+                              className="rounded-[0.95rem] border border-white/10 bg-black/20 px-4 py-3 text-[0.9rem] text-white/[0.7] transition-colors duration-300 group-hover:border-white/[0.14]"
+                            >
+                              {feature}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        <section className="section-shell pt-4">
+          <div className="container">
+            <div className="premium-surface subtle-outline overflow-hidden px-6 py-8 md:px-8 md:py-10">
+              <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
+                <div className="max-w-sm space-y-3">
+                  <p className="section-kicker">
+                    <span className="h-1.5 w-1.5 rounded-full bg-yellow-500" />
+                    How we work
                   </p>
+                  <h2 className="text-3xl font-medium text-white md:text-4xl">
+                    Clear strategy, design, and delivery.
+                  </h2>
+                </div>
+
+                <div className="grid flex-1 gap-5 md:grid-cols-3">
+                  {principles.map((principle) => {
+                    const Icon = principle.icon;
+
+                    return (
+                      <article
+                        key={principle.title}
+                        className="rounded-[1rem] border border-white/10 bg-white/[0.03] p-5"
+                      >
+                        <div className="flex h-11 w-11 items-center justify-center rounded-[0.9rem] border border-white/10 bg-white/[0.05] text-yellow-500">
+                          <Icon className="h-5 w-5" />
+                        </div>
+                        <h3 className="mt-5 text-lg font-medium text-white">
+                          {principle.title}
+                        </h3>
+                        <p className="mt-3 text-sm leading-6 text-white/[0.58]">
+                          {principle.description}
+                        </p>
+                      </article>
+                    );
+                  })}
                 </div>
               </div>
-
-              <div className="mx-auto mt-16 max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8">
-                {services.map((service, index) => (
-                  <div
-                    key={index}
-                    className="animate-fade"
-                    style={{ transitionDelay: `${index * 100}ms` }}
-                  >
-                    <ServiceCard
-                      title={service.title}
-                      description={service.description}
-                      features={service.features}
-                      onLearnMore={() => setActiveDialog(index)}
-                    />
-                  </div>
-                ))}
-              </div>
             </div>
-          </section>
+          </div>
+        </section>
 
-          <CTASection
-            title="Ready to get started?"
-            description="Let's discuss how we can help you achieve your business goals with custom software solutions."
-            primaryButtonText="Schedule a Call"
-            primaryButtonAction={() => router.push("/schedule")}
-          />
-        </main>
-
-        <Dialog
-          open={activeDialog !== null}
-          onOpenChange={() => setActiveDialog(null)}
-        >
-          <DialogContent className="sm:max-w-[625px] bg-gray-950 border-gray-800 text-white">
-            <DialogHeader>
-              <DialogTitle className="text-2xl">
-                {activeDialog !== null && services[activeDialog].title}
-              </DialogTitle>
-            </DialogHeader>
-            <div className="py-4">
-              <p className="text-gray-400">
-                {activeDialog !== null && services[activeDialog].details}
-              </p>
-              <ul className="mt-6 space-y-4">
-                {activeDialog !== null &&
-                  services[activeDialog].features.map((feature) => (
-                    <li key={feature} className="flex items-start">
-                      <div className="flex-shrink-0">
-                        <Check className="h-5 w-5 text-yellow-500" />
-                      </div>
-                      <span className="ml-3 text-gray-300">{feature}</span>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          </DialogContent>
-        </Dialog>
-      </div>
-    </div>
+        <CTASection
+          eyebrow="Ready when you are"
+          title="Tell us what you need."
+          description="We build software around real people, real work, and meaningful progress."
+          primaryHref="/schedule"
+          primaryButtonText="Schedule a call"
+          secondaryHref="/about"
+          secondaryButtonText="Learn about YOLET"
+        />
+      </main>
+    </>
   );
 }
