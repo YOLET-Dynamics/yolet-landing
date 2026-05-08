@@ -127,13 +127,6 @@ export default function RootLayout({
           >
             Skip to content
           </a>
-          <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(245,184,0,0.08),transparent_30%),linear-gradient(180deg,#040404_0%,#090909_38%,#080808_100%)]" />
-            <div className="absolute inset-0 bg-grid-soft opacity-60" />
-            <div className="absolute left-[-14rem] top-[12rem] h-[32rem] w-[32rem] rounded-full bg-white/[0.04] blur-[160px]" />
-            <div className="absolute right-[-10rem] top-[8rem] h-[26rem] w-[26rem] rounded-full bg-yellow-500/[0.10] blur-[140px]" />
-            <div className="absolute bottom-[-10rem] left-1/2 h-[28rem] w-[40rem] -translate-x-1/2 rounded-full bg-white/[0.04] blur-[180px]" />
-          </div>
           <div className="relative flex min-h-screen flex-col">
             <Navigation />
             {children}

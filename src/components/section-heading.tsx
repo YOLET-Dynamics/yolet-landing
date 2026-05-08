@@ -2,9 +2,9 @@ import type { ReactElement } from "react";
 import { cn } from "@/lib/utils";
 
 type SectionHeadingProps = {
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
-  description: string;
+  description?: string;
   align?: "left" | "center";
   className?: string;
   titleClassName?: string;
@@ -23,17 +23,20 @@ export function SectionHeading({
   return (
     <div
       className={cn(
-        "space-y-5",
+        "space-y-6",
         align === "center" && "mx-auto max-w-3xl text-center",
         className,
       )}
     >
-      <div className={cn("section-kicker", align === "center" && "mx-auto")}>
-        <span className="h-1.5 w-1.5 rounded-full bg-yellow-500 animate-pulse-soft" />
-        {eyebrow}
-      </div>
-      <h2 className={cn("section-title text-balance", titleClassName)}>{title}</h2>
-      <p className={cn("section-copy", descriptionClassName)}>{description}</p>
+      {eyebrow ? (
+        <p className="section-eyebrow">{eyebrow}</p>
+      ) : null}
+      <h2 className={cn("display-2 text-balance", titleClassName)}>{title}</h2>
+      {description ? (
+        <p className={cn("body-lead max-w-2xl", align === "center" && "mx-auto", descriptionClassName)}>
+          {description}
+        </p>
+      ) : null}
     </div>
   );
 }

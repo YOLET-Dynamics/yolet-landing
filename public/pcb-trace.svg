@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" width="720" height="720" fill="none">
+  <g stroke="#525252" stroke-width="1" fill="none">
+    <path d="M40 60 L40 40 L60 40"></path>
+    <path d="M660 40 L680 40 L680 60"></path>
+    <path d="M40 660 L40 680 L60 680"></path>
+    <path d="M660 680 L680 680 L680 660"></path>
+  </g>
+
+  
+  <g fill="none" stroke="#3a3a3a" stroke-width="1" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M 720 120 L 520 120 L 520 200 L 360 200 L 360 320 L 200 320 L 200 480 L 80 480"></path>
+    <path d="M 520 200 L 600 200 L 600 360 L 480 360"></path>
+    <path d="M 360 320 L 360 440 L 280 440"></path>
+    <path d="M 640 80 L 640 280 L 560 280 L 560 480 L 720 480"></path>
+    <path d="M 80 600 L 240 600 L 240 560 L 400 560 L 400 640 L 600 640 L 600 600 L 720 600"></path>
+    <path d="M 80 200 L 160 200 L 160 280 L 280 280"></path>
+    <path d="M 80 360 L 140 360"></path>
+    <path d="M 440 440 L 440 520 L 520 520"></path>
+  </g>
+
+  
+  <g fill="none" stroke="#FFC107" stroke-width="1.25" stroke-linecap="square" opacity="0.95">
+    <path d="M 80 80 L 280 80 L 280 160 L 440 160 L 440 80 L 720 80"></path>
+  </g>
+
+  
+  <g fill="#0a0a0a" stroke="#525252" stroke-width="1">
+    <circle cx="520" cy="120" r="3"></circle><circle cx="520" cy="200" r="3"></circle><circle cx="360" cy="200" r="3"></circle>
+    <circle cx="360" cy="320" r="3"></circle><circle cx="200" cy="320" r="3"></circle><circle cx="200" cy="480" r="3"></circle>
+    <circle cx="600" cy="200" r="3"></circle><circle cx="600" cy="360" r="3"></circle><circle cx="360" cy="440" r="3"></circle>
+    <circle cx="640" cy="280" r="3"></circle><circle cx="560" cy="280" r="3"></circle><circle cx="560" cy="480" r="3"></circle>
+    <circle cx="240" cy="600" r="3"></circle><circle cx="240" cy="560" r="3"></circle><circle cx="400" cy="560" r="3"></circle>
+    <circle cx="400" cy="640" r="3"></circle><circle cx="600" cy="640" r="3"></circle><circle cx="600" cy="600" r="3"></circle>
+    <circle cx="160" cy="200" r="3"></circle><circle cx="160" cy="280" r="3"></circle><circle cx="280" cy="280" r="3"></circle>
+    <circle cx="440" cy="440" r="3"></circle><circle cx="440" cy="520" r="3"></circle><circle cx="520" cy="520" r="3"></circle>
+  </g>
+
+  
+  <circle cx="280" cy="80" r="4" fill="#0a0a0a" stroke="#FFC107" stroke-width="1.25"></circle>
+  <circle cx="440" cy="80" r="4" fill="#0a0a0a" stroke="#FFC107" stroke-width="1.25"></circle>
+  <circle cx="440" cy="160" r="3" fill="#0a0a0a" stroke="#525252" stroke-width="1"></circle>
+
+  
+  <g stroke="#525252" fill="none" stroke-width="1">
+    <rect x="296" y="376" width="128" height="48"></rect>
+    <line x1="316" y1="376" x2="316" y2="368"></line>
+    <line x1="336" y1="376" x2="336" y2="368"></line>
+    <line x1="356" y1="376" x2="356" y2="368"></line>
+    <line x1="376" y1="376" x2="376" y2="368"></line>
+    <line x1="396" y1="376" x2="396" y2="368"></line>
+    <line x1="316" y1="424" x2="316" y2="432"></line>
+    <line x1="336" y1="424" x2="336" y2="432"></line>
+    <line x1="356" y1="424" x2="356" y2="432"></line>
+    <line x1="376" y1="424" x2="376" y2="432"></line>
+    <line x1="396" y1="424" x2="396" y2="432"></line>
+    <circle cx="306" cy="386" r="2" fill="#525252"></circle>
+  </g>
+  <text x="312" y="408" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" fill="#6b6b6b" letter-spacing="1">YL—01</text>
+  <text x="40" y="700" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="#6b6b6b" letter-spacing="1">REV 04 · 720×720</text>
+</svg>

@@ -1,19 +1,19 @@
 export const siteConfig = {
   name: "YOLET Software Labs",
   shortName: "YOLET Labs",
-  tagline: "Create. Design. Innovate.",
+  tagline: "Custom software, built to last.",
   description:
-    "Software that simplifies the complex, elevates the everyday, and helps communities and businesses make meaningful progress.",
+    "YOLET designs, builds, and modernizes software — from internal platforms to client-facing products.",
   url: "https://yoletent.com",
   ogImage: "/og.jpg",
   keywords: [
     "YOLET Labs",
-    "software development Ethiopia",
-    "premium web development",
-    "custom software Africa",
-    "enterprise software design",
+    "custom software development",
+    "enterprise software",
     "product design and engineering",
-    "system modernization",
+    "software modernization",
+    "internal platforms",
+    "Ethiopia software company",
   ],
   nav: [
     {

@@ -3,12 +3,7 @@
 import type { FormEvent, ReactElement, ReactNode } from "react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  ArrowRight,
-  ArrowUpRight,
-  CheckCircle2,
-  ChevronLeft,
-} from "lucide-react";
+import { CheckCircle2, ChevronLeft } from "lucide-react";
 import { useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
@@ -248,25 +243,20 @@ export function ScheduleForm(): ReactElement {
 
   if (isSubmitted) {
     return (
-      <div className="premium-surface overflow-hidden p-8 md:p-10">
+      <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 md:p-10">
         <div className="flex flex-col items-start gap-5">
-          <div className="flex h-14 w-14 items-center justify-center rounded-[1rem] border border-green-500/20 bg-green-500/10 text-green-400">
-            <CheckCircle2 className="h-7 w-7" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-full border border-green-500/20 bg-green-500/10 text-green-400">
+            <CheckCircle2 className="h-6 w-6" />
           </div>
           <div className="space-y-3">
-            <h2 className="text-3xl font-medium text-white">
-              Request sent.
-            </h2>
-            <p className="max-w-xl text-base leading-7 text-white/[0.62]">
-              We got it. We’ll be in touch soon.
+            <h2 className="display-3">Request sent.</h2>
+            <p className="body-base max-w-xl">
+              We got it. We&rsquo;ll be in touch soon.
             </p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">
             <Button asChild size="lg">
-              <Link href="/">
-                Return home
-                <ArrowUpRight className="text-yellow-600" />
-              </Link>
+              <Link href="/">Return home</Link>
             </Button>
             <Button
               type="button"
@@ -288,7 +278,7 @@ export function ScheduleForm(): ReactElement {
   return (
     <form
       onSubmit={handleFormSubmit}
-      className="overflow-hidden rounded-[1.35rem] border border-white/10 bg-black/[0.16] p-6 shadow-[0_24px_90px_rgba(0,0,0,0.22)] backdrop-blur-xl md:p-8 lg:p-10"
+      className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 md:p-8 lg:p-10"
       noValidate
     >
       <input
@@ -307,40 +297,13 @@ export function ScheduleForm(): ReactElement {
       </div>
 
       <div className="space-y-8">
-        <div className="space-y-4">
-          <div className="space-y-3">
-            <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-              <div className="space-y-3">
-                <h2 className="text-3xl font-medium text-white md:text-4xl">
-                  Start with the basics.
-                </h2>
-                <p className="max-w-2xl text-sm leading-6 text-white/[0.52] md:text-base">
-                  Just enough for a useful first reply.
-                </p>
-              </div>
-            </div>
-
-            {serverError ? (
-              <div className="rounded-[1.05rem] bg-red-400/10 px-4 py-3 text-sm text-red-200">
-                {serverError}
-              </div>
-            ) : null}
+        {serverError ? (
+          <div className="rounded-lg bg-red-400/10 px-4 py-3 text-sm text-red-200">
+            {serverError}
           </div>
-        </div>
+        ) : null}
 
-        <div className="relative grid grid-cols-3 gap-2 px-3 py-3 md:px-5">
-          <div className="pointer-events-none absolute left-[calc(16.666%+0.75rem)] right-[calc(16.666%+0.75rem)] top-1/2 h-px -translate-y-1/2 bg-white/10 md:left-[calc(16.666%+1.25rem)] md:right-[calc(16.666%+1.25rem)]">
-            <div
-              className={cn(
-                "h-full bg-gradient-to-r from-yellow-500 to-yellow-500/65 transition-all duration-300",
-                currentStepIndex === 0
-                  ? "w-0"
-                  : currentStepIndex === 1
-                    ? "w-1/2"
-                    : "w-full",
-              )}
-            />
-          </div>
+        <div className="flex items-center gap-3">
           {FORM_STEPS.map((step, index) => {
             const isActive = index === currentStepIndex;
             const isComplete = index < currentStepIndex;
@@ -352,44 +315,29 @@ export function ScheduleForm(): ReactElement {
                 type="button"
                 disabled={isFuture}
                 onClick={() => handleStepSelect(index)}
+                aria-label={`Step ${step.number}: ${step.title}`}
+                aria-current={isActive ? "step" : undefined}
                 className={cn(
-                  "relative flex items-center justify-center py-2 text-center transition-colors",
+                  "h-1 flex-1 rounded-full transition-colors",
                   isActive
-                    ? "text-white"
+                    ? "bg-yellow-500"
                     : isComplete
-                      ? "text-white/[0.72] hover:text-white"
-                      : "text-white/[0.3]",
+                      ? "bg-white/40 hover:bg-white/60"
+                      : "bg-white/10",
                   isFuture && "cursor-not-allowed",
                 )}
-              >
-                <span
-                  className={cn(
-                    "relative z-10 inline-flex h-11 w-11 items-center justify-center rounded-full text-[0.98rem] font-medium tracking-[0.08em] transition-all duration-300",
-                    isActive
-                      ? "border border-yellow-500/20 bg-yellow-500/[0.06] text-yellow-400 shadow-[0_0_0_1px_rgba(245,184,0,0.06),0_0_32px_rgba(245,184,0,0.14)]"
-                      : isComplete
-                        ? "border border-white/10 bg-white/[0.03] text-white/[0.7]"
-                        : "border border-white/[0.06] bg-black/[0.22] text-white/[0.28]",
-                  )}
-                >
-                  {step.number}
-                </span>
-              </button>
+              />
             );
           })}
         </div>
 
-        <div className="rounded-[1.15rem] bg-black/[0.18] p-5 md:p-6">
+        <div>
           <div className="space-y-2 pb-6">
-            <p className="text-[0.82rem] font-medium tracking-[0.08em] text-white/[0.42]">
-              {currentStep.title}
-            </p>
-            <h3 className="text-[1.45rem] font-medium leading-tight text-white md:text-[1.8rem]">
-              {currentStep.heading}
-            </h3>
-            <p className="max-w-xl text-sm leading-6 text-white/[0.5]">
-              {currentStep.description}
-            </p>
+            <p className="section-eyebrow">{currentStep.title}</p>
+            <h2 className="display-3 text-balance">{currentStep.heading}</h2>
+            {currentStep.description ? (
+              <p className="body-base max-w-xl">{currentStep.description}</p>
+            ) : null}
           </div>
 
           <div>
@@ -561,14 +509,14 @@ export function ScheduleForm(): ReactElement {
                             key={option}
                             htmlFor={option}
                             className={cn(
-                              "flex cursor-pointer items-start gap-3 rounded-[1.1rem] bg-white/[0.03] p-4 transition-colors",
+                              "flex cursor-pointer items-start gap-3 rounded-lg border border-white/10 p-4 transition-colors",
                               field.value === option
-                                ? "bg-yellow-500/[0.1] shadow-[inset_0_0_0_1px_rgba(245,184,0,0.22)]"
-                                : "hover:bg-white/[0.05]",
+                                ? "border-white/30 bg-white/[0.04]"
+                                : "hover:border-white/20",
                             )}
                           >
                             <RadioGroupItem id={option} value={option} className="mt-1" />
-                            <span className="text-sm leading-6 text-white/[0.72]">
+                            <span className="text-sm leading-6 text-white/75">
                               {option}
                             </span>
                           </label>
@@ -624,12 +572,10 @@ export function ScheduleForm(): ReactElement {
                 disabled={form.formState.isSubmitting}
               >
                 {form.formState.isSubmitting ? "Sending request..." : "Schedule a call"}
-                <ArrowUpRight className="text-yellow-600" />
               </Button>
             ) : (
               <Button type="button" size="lg" onClick={() => void goToNextStep()}>
                 Continue
-                <ArrowRight />
               </Button>
             )}
           </div>
